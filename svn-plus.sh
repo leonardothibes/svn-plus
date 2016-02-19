@@ -26,21 +26,45 @@ controller()
 	NAME=$2
 	REMOVE=$3
 
+	# Determinando ação
 	if [[ ${ACTION} != 'tag' && ${ACTION} != 'branch' ]]; then
 		echo "Ação inválida: ${ACTION}"
 		exit 1
 	fi
+	# Determinando ação
 
+	# Listando
 	if [ -z ${NAME} ]; then
 		list ${ACTION}
 		exit 0
 	fi
+	# Listando
+	
+	# Criando
+	if [ -z ${REMOVE} ]; then
+		create ${ACTION} ${NAME}
+		exit 0
+	fi
+	# Criando
+	
+	# Removendo
+	if [[ ! -z ${REMOVE} && ${REMOVE} == '--remove' ]]; then
+		remove ${ACTION} ${NAME}
+		exit 0
+	fi
+	# Removendo
+	
+	# Deu ruim
+	echo "Arguments inválidos!"
+	exit 1
+	# Deu ruim
 }
 
 ##
 # Extrai a URL do repositório do retorno do svn-info
 # 
 # @param $1 Define se é tag ou branch
+# @return String
 ##
 url()
 {
@@ -66,6 +90,28 @@ list()
 {
 	URL=$(url $1)
 	svn ls ${URL} | sed -e 's,/,,g'
+}
+
+##
+# Cria tags ou branches
+# 
+# @param $1 Define se é tag ou branch
+# @param $2 Nome da tag ou branch a ser criada.
+##
+create()
+{
+	echo "Criando $1 $2"
+}
+
+##
+# Deleta tags ou branches
+# 
+# @param $1 Define se é tag ou branch
+# @param $2 Nome da tag ou branch a ser deletada.
+##
+remove()
+{
+	echo "Deletando $1 $2"
 }
 
 ##
