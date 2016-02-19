@@ -6,29 +6,49 @@ Utilitário para suprir a deficiência como a qual o Subversion lida com *tags* 
 TAGS
 ----
 
-Todos os comandos devem ser executados na raiz do projeto que se quer controlar.
-
 ##### Listando as tags
 
 ```
-svn-tag list
+svn-plus tag
 ```
 
 ##### Criando uma tag
 
 ```
-svn-tag [nome-da-tag]
+svn-plus tag [nome-da-tag]
 ```
 
 ##### Deletando uma tag
 
 ```
-svn-tag [nome-da-tag] --remove
+svn-plus tag [nome-da-tag] --remove
+```
+
+BRANCHES
+--------
+
+##### Listando os branches
+
+```
+svn-plus branch
+```
+
+##### Criando uma branch
+
+```
+svn-plus branch [nome-da-branch]
+```
+
+##### Deletando uma branch
+
+```
+svn-plus branch [nome-da-branch] --remove
 ```
 
 Observações Gerais
 ------------------
 
+ * Todos os comandos devem ser executados na raiz do projeto que se quer controlar.
  * O script herda a autenticação do ambiente.
 
 Responsáveis técnicos
