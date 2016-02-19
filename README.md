@@ -33,13 +33,13 @@ BRANCHES
 svn-plus branch
 ```
 
-##### Criando uma branch
+##### Criando um branch
 
 ```
 svn-plus branch [nome-da-branch]
 ```
 
-##### Deletando uma branch
+##### Deletando um branch
 
 ```
 svn-plus branch [nome-da-branch] --remove
