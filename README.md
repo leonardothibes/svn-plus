@@ -1,10 +1,10 @@
 SVN TAG
 =======
 
-Utilitário para gerenciamento de tags do SVN.
+Utilitário para suprir a deficiência como a qual o Subversion lida com *tags* e *branches*.
 
-Forma de uso
-------------
+TAGS
+----
 
 Todos os comandos devem ser executados na raiz do projeto que se quer controlar.
 
