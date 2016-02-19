@@ -105,7 +105,7 @@ create()
 	TRUNK=$(url)/trunk
 	BRANCH=$(url $1)/${2}
 
-	echo "svn copy ${TRUNK} ${BRANCH}"
+	svn copy ${TRUNK} ${BRANCH}
 }
 
 ##
