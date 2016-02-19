@@ -116,7 +116,8 @@ create()
 ##
 remove()
 {
-	echo "Deletando $1 $2"
+	BRANCH=$(url $1)/${2}
+	svn rm ${BRANCH}
 }
 
 ##
