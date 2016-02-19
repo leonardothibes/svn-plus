@@ -72,10 +72,12 @@ url()
 	REL=$(svn info | grep 'Relative URL:' | sed -e 's/Relative URL: ^//g')
 	URL=$(echo ${URL} | sed -e "s,${REL},,g")
 
-	if [ $1 == 'tag' ]; then
-		URL=${URL}/tags
-	else
-		URL=${URL}/branches
+	if [ ! -z $1 ]; then
+		if [ $1 == 'tag' ]; then
+			URL=${URL}/tags
+		else
+			URL=${URL}/branches
+		fi
 	fi
 
 	echo ${URL}
@@ -100,7 +102,10 @@ list()
 ##
 create()
 {
-	echo "Criando $1 $2"
+	TRUNK=$(url)
+	BRANCH=$(url $1)/${2}
+
+	svn copy ${TRUNK}/trunk ${BRANCH}
 }
 
 ##
