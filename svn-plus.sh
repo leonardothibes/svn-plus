@@ -44,15 +44,15 @@ controller()
 ##
 url()
 {
-	# URL=$(svn info | grep 'URL: http' | sed -e 's/URL:\ //g' | sed -e 's/\/trunk//g')
-	# URL=$(echo ${URL} | sed -e 's/\/tags//g' | sed -e 's/\/branches//g')
-	
 	URL=$(svn info | grep 'URL: http' | sed -e 's/URL:\ //g')
 	REL=$(svn info | grep 'Relative URL:' | sed -e 's/Relative URL: ^//g')
 	URL=$(echo ${URL} | sed -e "s,${REL},,g")
-	
 
-	# if [ $1 == 'tag']; then
+	if [ $1 == 'tag' ]; then
+		URL=${URL}/tags
+	else
+		URL=${URL}/branches
+	fi
 
 	echo ${URL}
 } 
@@ -65,8 +65,7 @@ url()
 list()
 {
 	URL=$(url $1)
-
-	echo "${URL}"
+	svn ls ${URL} | sed -e 's,/,,g'
 }
 
 ##
