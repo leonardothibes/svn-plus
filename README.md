@@ -23,7 +23,7 @@ svn-tag [nome-da-tag]
 ##### Deletando uma tag
 
 ```
-svn-tag del [nome-da-tag]
+svn-tag [nome-da-tag] --remove
 ```
 
 Observações Gerais
