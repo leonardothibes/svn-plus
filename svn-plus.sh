@@ -18,7 +18,7 @@ fi
 # 
 # @param $1 Ação a ser executada[tag|branch]
 # @param $2 Nome da tag/branch
-# @param $3 Flag de deleçao
+# @param $3 Flag de remoção
 ## 
 controller()
 {
@@ -102,10 +102,10 @@ list()
 ##
 create()
 {
-	TRUNK=$(url)
+	TRUNK=$(url)/trunk
 	BRANCH=$(url $1)/${2}
 
-	svn copy ${TRUNK}/trunk ${BRANCH}
+	echo "svn copy ${TRUNK} ${BRANCH}"
 }
 
 ##
