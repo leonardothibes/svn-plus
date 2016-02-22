@@ -109,7 +109,7 @@ list()
     # echo ' ------'
 
 	URL=$(url $1)
-	svn ls ${URL} | sed -e 's,/,,g'
+	svn ls ${URL} | sed -e 's,/,,g' | sort -V
 
     if [ ${1} == 'branch' ]; then
         echo 'trunk'
