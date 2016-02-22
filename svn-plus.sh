@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.1.2
+VERSION=0.2.0
 COMMAND=help
 SVN=/usr/bin/svn
 
@@ -27,7 +27,12 @@ controller()
 	REMOVE=$3
 
 	# Determinando ação
-	if [[ ${ACTION} != 'tag' && ${ACTION} != 'branch' && ${ACTION} != 'help' ]]; then
+	if [[
+        ${ACTION} != 'tag' &&
+        ${ACTION} != 'branch' &&
+        ${ACTION} != 'help' &&
+        ${ACTION} != 'switch'
+    ]]; then
 		echo "Ação inválida: ${ACTION}"
 		exit 1
 	fi
@@ -114,13 +119,11 @@ branch()
 ##
 list()
 {
-    # echo ' ------'
     if [ ${1} == 'branch' ]; then
         echo '[ BRANCHES ]'
     else
         echo '[ TAGS ]'
     fi
-    # echo ' ------'
 
 	URL=$(url $1)
 	svn ls ${URL} | sed -e 's,/,,g' | sort -V
@@ -128,7 +131,7 @@ list()
     if [ ${1} == 'branch' ]; then
         echo 'trunk'
         CURRENT=$(branch branch)
-        echo "[ current: ${CURRENT} ]"
+        echo "[ current: ${CURRENT} ]" | sed -e 's/branches//g'
     fi
 }
 
@@ -159,13 +162,29 @@ remove()
 }
 
 ##
+# Altera o branch corrente
+#
+# @param $1 Nome do branch
+##
+switch()
+{
+    if [ -z $1 ]; then
+        echo 'Informe um branch para mudar!'
+        exit 1
+    fi
+
+    URL=$(url branch)/$1
+    svn switch ${URL}
+}
+
+##
 # Exibe a mensagem de HELP.
 ##
 help()
 {
     clear
 	echo "Ferramenta de gerenciamento de TAGS e BRANCHES do Subversion (${VERSION})"
-	echo "Uso: svn-plus [tag|branch|help] [options]"
+	echo "Uso: svn-plus [subcommand] [options]"
 	echo ""
 	echo "Subcomandos disponíveis:"
 	echo ""
