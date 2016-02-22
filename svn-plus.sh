@@ -15,11 +15,11 @@ fi
 
 ##
 # Controla o fluxo do app.
-# 
+#
 # @param $1 Ação a ser executada[tag|branch]
 # @param $2 Nome da tag/branch
 # @param $3 Flag de remoção
-## 
+##
 controller()
 {
 	ACTION=$1
@@ -39,21 +39,21 @@ controller()
 		exit 0
 	fi
 	# Listando
-	
+
 	# Criando
 	if [ -z ${REMOVE} ]; then
 		create ${ACTION} ${NAME}
 		exit 0
 	fi
 	# Criando
-	
+
 	# Removendo
 	if [[ ! -z ${REMOVE} && ${REMOVE} == '--remove' ]]; then
 		remove ${ACTION} ${NAME}
 		exit 0
 	fi
 	# Removendo
-	
+
 	# Deu ruim
 	echo "Arguments inválidos!"
 	exit 1
@@ -62,7 +62,7 @@ controller()
 
 ##
 # Extrai a URL do repositório do retorno do svn-info
-# 
+#
 # @param $1 Define se é tag ou branch
 # @return String
 ##
@@ -81,22 +81,46 @@ url()
 	fi
 
 	echo ${URL}
-} 
+}
+
+##
+# Extrai da URL do repositório o nome do branch atual.
+#
+# @return String
+##
+branch()
+{
+    echo $(svn info | grep 'Relative URL:' | sed -e 's/Relative URL: ^//g' | sed -e "s,/,,g")
+}
 
 ##
 # Lista tags ou branches
-# 
+#
 # @param $1 Define se é tag ou branch
-## 
+##
 list()
 {
+    # echo ' ------'
+    if [ ${1} == 'branch' ]; then
+        echo '[ BRANCHES ]'
+    else
+        echo '[ TAGS ]'
+    fi
+    # echo ' ------'
+
 	URL=$(url $1)
 	svn ls ${URL} | sed -e 's,/,,g'
+
+    if [ ${1} == 'branch' ]; then
+        echo 'trunk'
+        CURRENT=$(branch branch)
+        echo "[ current: ${CURRENT} ]"
+    fi
 }
 
 ##
 # Cria tags ou branches
-# 
+#
 # @param $1 Define se é tag ou branch
 # @param $2 Nome da tag ou branch a ser criada.
 ##
@@ -110,7 +134,7 @@ create()
 
 ##
 # Deleta tags ou branches
-# 
+#
 # @param $1 Define se é tag ou branch
 # @param $2 Nome da tag ou branch a ser deletada.
 ##
