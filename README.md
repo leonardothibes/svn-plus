@@ -51,6 +51,12 @@ svn-plus branch [nome-da-branch] --remove
 svn-plus switch [nome-da-branch]
 ```
 
+##### Merge de branches
+
+```
+svn-plus merge [nome-da-branch]
+```
+
 Observações Gerais
 ------------------
 
