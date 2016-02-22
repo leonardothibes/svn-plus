@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.2.0
+VERSION=0.3.0
 COMMAND=help
 SVN=/usr/bin/svn
 
@@ -30,8 +30,9 @@ controller()
 	if [[
         ${ACTION} != 'tag' &&
         ${ACTION} != 'branch' &&
-        ${ACTION} != 'help' &&
-        ${ACTION} != 'switch'
+        ${ACTION} != 'switch' &&
+        ${ACTION} != 'merge' &&
+        ${ACTION} != 'help'
     ]]; then
 		echo "Ação inválida: ${ACTION}"
 		exit 1
@@ -51,6 +52,13 @@ controller()
         exit 0
     fi
     # Switch
+
+    # Merge
+    if [ ${ACTION} == 'merge' ]; then
+        merge ${NAME}
+        exit 0
+    fi
+    # Merge
 
 	# Listando
 	if [ -z ${NAME} ]; then
@@ -182,6 +190,26 @@ switch()
 }
 
 ##
+# Merge de um branch com o branch corrente.
+#
+# @param $1 Nome do branch de origem do código.
+##
+merge()
+{
+    if [ -z $1 ]; then
+        echo 'Informe um branch para fazer merge!'
+        exit 1
+    fi
+
+    URL=$(url branch)/$1
+    if [ $1 == 'trunk' ]; then
+        URL=$(url)/trunk
+    fi
+
+    svn merge --reintegrate ${URL} .
+}
+
+##
 # Exibe a mensagem de HELP.
 ##
 help()
@@ -204,6 +232,9 @@ help()
     echo ""
     echo "  switch:"
     echo "    switch [nome-do-branch]           Altera o branch corrente"
+    echo ""
+    echo "  merge:"
+    echo "    merge [nome-do-branch]           Merge de branches"
     echo ""
     echo "  help:"
 	echo "    Exibe esta mensagem de help"
