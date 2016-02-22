@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.1.0
+VERSION=0.1.2
 COMMAND=help
 SVN=/usr/bin/svn
 
@@ -27,11 +27,25 @@ controller()
 	REMOVE=$3
 
 	# Determinando ação
-	if [[ ${ACTION} != 'tag' && ${ACTION} != 'branch' ]]; then
+	if [[ ${ACTION} != 'tag' && ${ACTION} != 'branch' && ${ACTION} != 'help' ]]; then
 		echo "Ação inválida: ${ACTION}"
 		exit 1
 	fi
 	# Determinando ação
+
+    # Help
+    if [ ${ACTION} == 'help' ]; then
+        help
+        exit 0
+    fi
+    # Help
+
+    # Switch
+    if [ ${ACTION} == 'switch' ]; then
+        switch ${NAME}
+        exit 0
+    fi
+    # Switch
 
 	# Listando
 	if [ -z ${NAME} ]; then
@@ -149,8 +163,9 @@ remove()
 ##
 help()
 {
+    clear
 	echo "Ferramenta de gerenciamento de TAGS e BRANCHES do Subversion (${VERSION})"
-	echo "Uso: svn-plus [tag|branch] [options]"
+	echo "Uso: svn-plus [tag|branch|help] [options]"
 	echo ""
 	echo "Subcomandos disponíveis:"
 	echo ""
@@ -163,8 +178,14 @@ help()
 	echo "    branch (sem algumentos)           Lista todos os branchs"
 	echo "    branch [nome-do-branch]           Cria um novo branch"
 	echo "    branch [nome-do-branch] --remove  Remove um branch"
-	echo ""
-	echo "Para informações adicionais, veja https://bitbucket.org/lidercap/svn-plus/"
+    echo ""
+    echo "  switch:"
+    echo "    switch [nome-do-branch]           Altera o branch corrente"
+    echo ""
+    echo "  help:"
+	echo "    Exibe esta mensagem de help"
+    echo ""
+	echo "Para mais informações, visite https://bitbucket.org/lidercap/svn-plus/"
 }
 
 eval controller ${COMMAND} $2 $3
