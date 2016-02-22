@@ -45,6 +45,12 @@ svn-plus branch [nome-da-branch]
 svn-plus branch [nome-da-branch] --remove
 ```
 
+##### Mudando de branch
+
+```
+svn-plus switch [nome-da-branch]
+```
+
 Observações Gerais
 ------------------
 
