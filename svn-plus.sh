@@ -174,6 +174,10 @@ switch()
     fi
 
     URL=$(url branch)/$1
+    if [ $1 == 'trunk' ]; then
+        URL=$(url)/trunk
+    fi
+
     svn switch ${URL}
 }
 
