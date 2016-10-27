@@ -151,10 +151,8 @@ list()
 ##
 create()
 {
-	TRUNK=$(url)/trunk
 	BRANCH=$(url $1)/${2}
-
-	svn copy ${TRUNK} ${BRANCH}
+	svn copy . ${BRANCH}
 }
 
 ##
