@@ -1,8 +1,10 @@
 #!/bin/bash
 
-VERSION=0.4.0
+VERSION=0.4.1
 COMMAND=help
 SVN=/usr/bin/svn
+OS=$(test -d /Library && echo "mac" || echo "linux")
+SORT=$(test ${OS} == "linux" && echo "sort -V" || echo "sort -g")
 
 if [ ! -f ${SVN} ]; then
 	echo "Comando \"svn\" não encontrado!"
@@ -134,7 +136,7 @@ list()
     fi
 
 	URL=$(url $1)
-	svn ls ${URL} | sed -e 's,/,,g' | sort -V
+	svn ls ${URL} | sed -e 's,/,,g' | ${SORT}
 
     if [ ${1} == 'branch' ]; then
         echo 'trunk'
