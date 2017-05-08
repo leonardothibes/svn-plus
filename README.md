@@ -66,5 +66,4 @@ Observações Gerais
 Responsáveis técnicos
 ---------------------
 
- * **Fernando Villaça <fvillaca@lidercap.com.br>**
  * **Leonardo Thibes  <lthibes@lidercap.com.br>**
