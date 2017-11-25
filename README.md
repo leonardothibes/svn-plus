@@ -1,7 +1,7 @@
 SVN TAG
 =======
 
-Utilitário para suprir a deficiência com a qual o Subversion lida com *tags* e *branches*.
+Utilitário para suprir a deficiência com do Subversion em lidar com *tags* e *branches*.
 
 TAGS
 ----
