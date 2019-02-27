@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.4.1
+VERSION=1.0.1
 COMMAND=help
 SVN=/usr/bin/svn
 OS=$(test -d /Library && echo "mac" || echo "linux")
@@ -239,7 +239,7 @@ help()
     echo "  help:"
 	echo "    Exibe esta mensagem de help"
     echo ""
-	echo "Para mais informações, visite https://bitbucket.org/lidercap/svn-plus/"
+	echo "Para mais informações, visite https://github.com/leonardothibes/svn-plus"
 }
 
 eval controller ${COMMAND} $2 $3
